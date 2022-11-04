@@ -17,7 +17,8 @@ OBJ=obj
 
 # Files
 SOURCE_NAME= utils.c \
-			 vector.c \
+			 vector_1.c \
+			 vector_2.c \
 
 ##########################################
 #    Don't touch anything below this     #

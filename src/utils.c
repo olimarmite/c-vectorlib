@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/04 15:17:35 by alde-fre          #+#    #+#             */
+/*   Updated: 2022/11/04 15:19:37 by alde-fre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vector.h"
 
 void	_ft_memcpy(void *dest, void *src, unsigned int len)
@@ -37,7 +49,3 @@ void	_ft_vector_resize(t_vector	*vector, t_length len)
 	vector->vec_len = len;
 	vector->data = data;
 }
-
-
-
-

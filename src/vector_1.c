@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector_1.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/04 15:17:31 by alde-fre          #+#    #+#             */
+/*   Updated: 2022/11/04 15:21:06 by alde-fre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vector.h"
 
 t_vector	*ft_vector_create(void)
@@ -5,7 +17,6 @@ t_vector	*ft_vector_create(void)
 	t_vector	*vector;
 
 	vector = malloc(sizeof(t_vector));
-	vector->data = malloc(sizeof(t_sector));
 	vector->vec_len = 1;
 	vector->sec_len = 0;
 	return (vector);
@@ -49,16 +60,3 @@ t_length	ft_vector_size(t_vector *vector)
 {
 	return ((vector->vec_len - 1) * VECTOR_SECTOR_LENGTH + vector->sec_len);
 }
-
-t_object	ft_vector_get(t_vector *vector, t_length index)
-{
-	t_length	i;
-	t_length	j;
-
-	if (index >= ft_vector_size(vector))
-		return (NO_OBJ);
-	i = index / VECTOR_SECTOR_LENGTH;
-	j = index & (VECTOR_SECTOR_LENGTH - 1);
-	return (vector->data[i].data[j]);
-}
-

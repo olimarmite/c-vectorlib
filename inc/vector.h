@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/04 15:17:22 by alde-fre          #+#    #+#             */
+/*   Updated: 2022/11/04 15:19:49 by alde-fre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef VECTOR_H
 # define VECTOR_H
 
-# define VECTOR_SECTOR_LENGTH 8
-# define NO_OBJ ((t_object)0)
+# define VECTOR_SECTOR_LENGTH 32
+# define NO_OBJ (0)
 
 # include <stdlib.h>
 # include <stdint.h>
@@ -11,12 +23,12 @@
 typedef struct s_vector	t_vector;
 typedef struct s_sector	t_sector;
 typedef unsigned int	t_length;
-typedef void *	t_object;
+typedef void *			t_object;
 
 /* FUNCTIONS */
 /* fastest memcpy */
-void	_ft_memcpy(void *dest, void *src, unsigned int len);
-void	_ft_vector_resize(t_vector *vector, t_length len);
+void		_ft_memcpy(void *dest, void *src, unsigned int len);
+void		_ft_vector_resize(t_vector *vector, t_length len);
 
 t_vector	*ft_vector_create(void);
 void		ft_vector_destroy(t_vector *vector);
