@@ -4,7 +4,7 @@
 
 # Compiler options
 CC=gcc
-CFLAGS=-c -lm -Wall -Wextra -Werror
+CFLAGS=-c -lm -Wall -Wextra -Werror -Ofast
 LDFLAGS=
 BINARY_NAME=
 LIBRARY_NAME=libvector.a
@@ -32,6 +32,7 @@ build: $(LIBRARY_NAME)
 clean:
 	@echo Removing $(OBJ)...
 	@rm -r -f $(OBJ)
+	@rm -r -f $(LIBRARY_NAME)
 
 fclean: clean
 	@echo Removing $(LIBRARY_NAME)...
