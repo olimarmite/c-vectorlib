@@ -6,42 +6,48 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:17:22 by alde-fre          #+#    #+#             */
-/*   Updated: 2022/11/08 14:00:03 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/13 23:55:57 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
 
-# define NO_OBJ (0)
-
 # include <stdlib.h>
 # include <stdint.h>
+
+# ifndef VECTOR_DEFAULT_SIZE
+#  define VECTOR_DEFAULT_SIZE 64
+# endif
+
+# define NO_OBJ ((t_object)0)
 
 /* TYPEDEF */
 typedef struct s_vector	t_vector;
 typedef unsigned int	t_length;
-typedef void *			t_object;
+typedef void 			*t_object;
 
 /* FUNCTIONS */
-/* fastest memcpy */
-void		_ft_memcpy(void *dest, void *src, unsigned int len);
-void		_ft_vector_resize(t_vector *vector, t_length len);
+void		_vector_memcpy(void *dest, void *src, t_length const len);
+int			_vector_resize(t_vector *const vector, t_length const len);
 
-t_vector	*ft_vector_create(t_length base_size);
-void		ft_vector_destroy(t_vector *vector);
-t_object	ft_vector_add(t_vector *vector, t_object object);
-t_object	ft_vector_pop(t_vector *vector);
-t_length	ft_vector_size(t_vector *vector);
+t_vector	*vector_init(
+					t_vector *const vector,
+					t_length const type_size);
+void		vector_destroy(t_vector *const vector);
+t_object	vector_add(t_vector *const vector, t_object object);
+t_object	vector_pop(t_vector *const vector);
+t_length	vector_size(t_vector const *const vector);
 
-t_object	ft_vector_get(t_vector *vector, t_length index);
+t_object	vector_get(t_vector const *const vector, t_length const index);
 
 /* STRUCTURES */
 struct s_vector
 {
-	t_object	*data;
-	t_length	obj_len;
-	t_length	total_len;
+	void		*data;
+	t_length	size;
+	t_length	capacity;
+	t_length	type_size;
 };
 
 #endif

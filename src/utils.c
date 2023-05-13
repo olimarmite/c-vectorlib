@@ -6,13 +6,13 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:17:35 by alde-fre          #+#    #+#             */
-/*   Updated: 2022/11/08 14:07:27 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/13 23:01:54 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 
-void	_ft_memcpy(void *dest, void *src, unsigned int len)
+void	_vector_memcpy(void *dest, void *src, t_length const len)
 {
 	void	*ptr;
 
@@ -23,32 +23,32 @@ void	_ft_memcpy(void *dest, void *src, unsigned int len)
 		src += 8;
 		dest += 8;
 	}
-	while (src < ptr - 4)
+	if (src < ptr - 4)
 	{
 		*((uint32_t *)dest) = *((uint32_t *)src);
 		src += 4;
 		dest += 4;
 	}
-	while (src < ptr - 2)
+	if (src < ptr - 2)
 	{
 		*((uint16_t *)dest) = *((uint16_t *)src);
 		src += 2;
 		dest += 2;
 	}
-	while (src < ptr)
+	if (src < ptr)
 		*(uint8_t *)dest++ = *(uint8_t *)src++;
 }
 
-void	_ft_vector_resize(t_vector	*vector, t_length len)
+int	_vector_resize(t_vector	*vector, t_length len)
 {
-	t_object	*data;
+	void	*data;
 
-	data = malloc(sizeof(t_object) * len);
-	if (len > vector->total_len)
-		_ft_memcpy(data, vector->data, sizeof(t_object) * vector->total_len);
-	else
-		_ft_memcpy(data, vector->data, sizeof(t_object) * len);
+	data = malloc(vector->type_size * len);
+	if (data == NULL)
+		return (1);
+	_vector_memcpy(data, vector->data, vector->type_size * vector->capacity);
 	free(vector->data);
-	vector->total_len = len;
+	vector->capacity = len;
 	vector->data = data;
+	return (0);
 }

@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"vector.h": "c",
+		"stdint.h": "c",
+		"riscv_vector.h": "c",
+		"vector": "c"
+	}
+}

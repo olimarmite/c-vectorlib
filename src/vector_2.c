@@ -6,15 +6,15 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:20:39 by alde-fre          #+#    #+#             */
-/*   Updated: 2022/11/08 13:59:50 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/13 23:28:43 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 
-t_object	ft_vector_get(t_vector *vector, t_length index)
+t_object	vector_get(t_vector const *const vector, t_length const index)
 {
-	if (index >= ft_vector_size(vector))
+	if (index >= vector->size)
 		return (NO_OBJ);
-	return (vector->data[index]);
+	return (vector->data + index * vector->type_size);
 }

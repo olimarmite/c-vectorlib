@@ -3,8 +3,8 @@
 ##########################################
 
 # Compiler options
-CC=gcc
-CFLAGS=-c -lm -Wall -Wextra -Werror -Ofast
+CC=clang
+CFLAGS= -MMD -MP -Wall -Wextra -Werror -g3
 LDFLAGS=
 BINARY_NAME=
 LIBRARY_NAME=libvector.a
@@ -19,6 +19,7 @@ OBJ=obj
 SOURCE_NAME= utils.c \
 			 vector_1.c \
 			 vector_2.c \
+			 main.c
 
 ##########################################
 #    Don't touch anything below this     #
@@ -27,7 +28,7 @@ SOURCE_FILES     = $(SOURCE_NAME:%.c=$(SRC)/%.c)
 BINARY_FILES     = $(BINARY_NAME:%=$(BIN)/%)
 OBJECT_FILES     = $(SOURCE_NAME:%.c=$(OBJ)/%.o)
 
-build: $(LIBRARY_NAME)
+build: obj $(LIBRARY_NAME)
 
 clean:
 	@echo Removing $(OBJ)...
@@ -42,13 +43,22 @@ re: fclean build
 
 .PHONY: build fclean
 
-$(LIBRARY_NAME): $(OBJECT_FILES)
-	@echo Packing $+...
-	@ar -crs $@ $+
-	@echo "Vectorlib created succesfully!"
-
-$(OBJECT_FILES): $(OBJ)/%.o: $(SRC)/%.c
-	@echo Compiling $<...
+obj:
+	@rm -rf .print_rule
 	@mkdir -p $(OBJ)
-	@$(CC) $(CFLAGS) -I $(INC) -o $@ $<
+
+$(LIBRARY_NAME): $(OBJECT_FILES)
+	@echo "\e[1;35mPacking...\e[0m"
+	@ar -crs $@ $+
+	@$(CC) $(CFLAGS) -I $(INC) -o "EXEC" $+
+	@echo "\e[1;32m➤" $@ "created succesfully !\e[0m"
+
+.print_rule:
+	@> $@
+	@echo "\e[1;36mCompiling...\e[0m"
+
+$(OBJ)/%.o: $(SRC)/%.c .print_rule
+	@echo "\e[0;36m ↳\e[0;36m" $< "\e[0m"
+	@mkdir -p $(OBJ)
+	@$(CC) $(CFLAGS) -I $(INC) -c -o $@ $<
 

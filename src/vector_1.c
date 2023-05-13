@@ -6,52 +6,52 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:17:31 by alde-fre          #+#    #+#             */
-/*   Updated: 2022/11/08 14:00:36 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/14 00:03:36 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 
-t_vector	*ft_vector_create(t_length base_size)
+t_vector	*vector_init(
+						t_vector *const vector,
+						t_length const type_size)
 {
-	t_vector	*vector;
-
-	vector = malloc(sizeof(t_vector));
-	vector->data = malloc(sizeof(t_object) * base_size);
-	vector->obj_len = 0;
-	vector->total_len = base_size;
+	if (type_size == 0)
+		return (NULL);
+	vector->data = malloc(type_size * VECTOR_DEFAULT_SIZE);
+	if (vector->data == NULL)
+		return (NULL);
+	vector->size = 0u;
+	vector->capacity = VECTOR_DEFAULT_SIZE;
+	vector->type_size = type_size;
 	return (vector);
 }
 
-void	ft_vector_destroy(t_vector *vector)
+void	vector_destroy(t_vector *const vector)
 {
 	free(vector->data);
-	free(vector);
 }
 
-t_object	ft_vector_add(t_vector *vector, t_object object)
+t_object	vector_add(t_vector *const vector, t_object object)
 {
-	if (vector->obj_len >= vector->total_len)
-		_ft_vector_resize(vector, vector->total_len * 2);
-	vector->data[vector->obj_len] = object;
-	vector->obj_len++;
+	if (vector->size >= vector->capacity)
+		if (_vector_resize(vector, vector->capacity + vector->capacity / 2))
+			return (NO_OBJ);
+	_vector_memcpy(vector->data + vector->size * vector->type_size,
+					object, vector->type_size);
+	vector->size++;
 	return (object);
 }
 
-t_object	ft_vector_pop(t_vector *vector)
+t_object	vector_pop(t_vector *const vector)
 {
-	t_object	object;
-
-	if (vector->obj_len == 0)
+	if (vector->size == 0)
 		return (NO_OBJ);
-	vector->obj_len--;
-	object = vector->data[vector->obj_len];
-	if (vector->obj_len > 1 && vector->obj_len < vector->total_len / 2)
-		_ft_vector_resize(vector, vector->total_len / 2);
-	return (object);
+	vector->size--;
+	return (vector->data + vector->size * vector->type_size);
 }
 
-t_length	ft_vector_size(t_vector *vector)
+t_length	vector_size(t_vector const *const vector)
 {
-	return (vector->obj_len);
+	return (vector->size);
 }
