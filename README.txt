@@ -20,7 +20,8 @@ exemple:
 
 	vector_add(&vector, &my_object);
 	//Add an object at the end of the vector and returns it.
-	//(note that the growth factor of the vector is x1.5)
+	//Please note that the object memory is copied.
+	//The growth factor of the vector is x1.5.
 	
 	vector_get(&vector, 0u);
 	//Returns an object at a certain index in the vector.
