@@ -13,9 +13,9 @@ exemple:
 	
 	my_object = 10;
 
-	my_vector = vector_create(&my_vector, sizeof(int));	//Allocate  and initialised all the memory used by the vector, returns a pointer to itself.
-								//The parameter is the size of the type,
-								//that the vector is going to use.
+	my_vector = vector_create(&my_vector, sizeof(int));	//Allocate and initialised all the memory used by the vector, 
+								//returns a pointer to itself or 'NULL' if there is an error.
+								//The parameter is the size of the storage type.
 
 	vector_add(&vector, &my_object);	//Add an object at the end of the vector and returns it.
 						//(note that the growth factor of the vector is x1.5)
