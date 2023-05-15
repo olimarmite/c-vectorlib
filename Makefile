@@ -17,8 +17,11 @@ OBJ=obj
 
 # Files
 SOURCE_NAME= utils.c \
-			 vector_1.c \
-			 vector_2.c \
+			 manager.c \
+			 size_modifiers.c \
+			 getter.c \
+			 adder.c \
+			 remover.c \
 			 main.c
 
 ##########################################
