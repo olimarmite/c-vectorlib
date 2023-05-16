@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:17:22 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/16 15:02:44 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/17 00:01:05 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,20 @@ t_length	vector_size(t_vector const *const vector)
 t_length	vector_capacity(t_vector const *const vector)
 			__attribute__((always_inline));
 
+void		_vec_choose_method(t_vector *const vector)
+			__attribute__((always_inline));
+
+t_object	_1byte_copy_method(void *dest, void *src, t_length const len)
+			__attribute__((always_inline));
+t_object	_2byte_copy_method(void *dest, void *src, t_length const len)
+			__attribute__((always_inline));
+t_object	_4byte_copy_method(void *dest, void *src, t_length const len)
+			__attribute__((always_inline));
+t_object	_8byte_copy_method(void *dest, void *src, t_length const len)
+			__attribute__((always_inline));
+t_object	_large_copy_method(void *dest, void *src, t_length const len)
+			__attribute__((always_inline));
+
 enum e_error
 {
 	SUCCES = 0,
@@ -76,6 +90,7 @@ struct s_vector
 	t_length	capacity;
 	void		*buffer;
 	t_length	type_size;
+	t_object	(*copy_method)(void *dest, void *src, t_length const len);
 };
 
 #endif

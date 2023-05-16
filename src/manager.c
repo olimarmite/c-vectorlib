@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:17:31 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/16 15:02:05 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/17 00:00:46 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_vector	*vector_init(t_vector *const vector, t_length const type_size)
 	vector->size = 0u;
 	vector->capacity = VECTOR_DEFAULT_SIZE;
 	vector->type_size = type_size;
+	_vec_choose_method(vector);
 	return (vector);
 }
 
@@ -43,5 +44,6 @@ t_vector	*vector_copy(t_vector *const vec_dest, t_vector *const vec_src)
 	_vec_memcpy(vec_dest->data, vec_src->data,
 		vec_src->type_size * vec_src->size);
 	vec_dest->size = vec_src->size;
+	vec_dest->copy_method = vec_src->copy_method;
 	return (vec_dest);
 }

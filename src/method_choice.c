@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getter.c                                           :+:      :+:    :+:   */
+/*   method_choice.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 10:43:22 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/16 23:50:42 by alde-fre         ###   ########.fr       */
+/*   Created: 2023/05/16 23:40:34 by alde-fre          #+#    #+#             */
+/*   Updated: 2023/05/17 00:01:16 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 
-t_object	vector_get(t_vector const *const vector, t_length const index)
+void	_vec_choose_method(t_vector *const vector)
 {
-	if (index >= vector->size)
-		return (NULL);
-	return (vector->data + index * vector->type_size);
-}
-
-t_object	vector_buffer(t_vector const *const vector)
-{
-	return (vector->buffer);
-}
-
-t_length	vector_size(t_vector const *const vector)
-{
-	return (vector->size);
-}
-
-t_length	vector_capacity(t_vector const *const vector)
-{
-	return (vector->capacity);
+	if (vector->type_size == 1)
+		vector->copy_method = &_1byte_copy_method;
+	else if (vector->type_size == 2)
+		vector->copy_method = &_2byte_copy_method;
+	else if (vector->type_size == 4)
+		vector->copy_method = &_4byte_copy_method;
+	else if (vector->type_size == 8)
+		vector->copy_method = &_8byte_copy_method;
+	else
+		vector->copy_method = &_2byte_copy_method;
 }

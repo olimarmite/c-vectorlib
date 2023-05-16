@@ -18,6 +18,8 @@ OBJ=obj
 # Files
 SOURCE_NAME= utils.c \
 			 manager.c \
+			 methods.c \
+			 method_choice.c \
 			 size_modifiers.c \
 			 getter.c \
 			 adder.c \
