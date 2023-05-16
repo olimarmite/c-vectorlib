@@ -6,14 +6,13 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:17:22 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/16 10:44:54 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:02:44 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
 
-#include <stdio.h>
 # include <stdlib.h>
 # include <stdint.h>
 

@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 22:12:45 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/16 10:24:16 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:04:28 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ int	main(void)
 	t_vector	vector;
 	t_vector	vector2;
 	t_length	i;
+	char		*str_erased;
 
 	vector_init(&vector, sizeof(char *));
 	vector_addback(&vector, &(char *){"Testing the vectors\n"});
-	vector_addback(&vector, &(char *){"this is a line that dosnt end with a nl"});
-	vector_addback(&vector, &(char *){" but this one does so it is supposed to merge\n"});
+	vector_addback(&vector, &(char *){"this is a line that dosnt end with a NNNnnNnnnnnnNNNN"});
+	vector_addback(&vector, &(char *){"my avocat advised me to not finish this sentence...\n"});
 	vector_addback(&vector, &(char *){"working ?\n"});
 	i = 0;
 	while (i < vector_size(&vector))
@@ -33,7 +34,7 @@ int	main(void)
 	printf("\n===============================\n");
 	vector_init(&vector2, sizeof(char *));
 	vector_copy(&vector2, &vector);
-	vector_erase(&vector2, 2);
+	str_erased = *(char **)vector_erase(&vector2, 2);
 	i = 0;
 	while (i < vector_size(&vector))
 	{
@@ -46,6 +47,7 @@ int	main(void)
 		printf(" + %s", *(char **)vector_get(&vector2, i));
 		i++;
 	}
+	printf("THIS ONE WAS ERASED : %s :\n", str_erased);
 	vector_destroy(&vector2);
 	vector_destroy(&vector);
 }
