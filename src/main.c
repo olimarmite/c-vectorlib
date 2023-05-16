@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 22:12:45 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/15 18:36:33 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/16 10:24:16 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int	main(void)
 {
 	t_vector	vector;
+	t_vector	vector2;
 	t_length	i;
 
 	vector_init(&vector, sizeof(char *));
@@ -26,24 +27,25 @@ int	main(void)
 	i = 0;
 	while (i < vector_size(&vector))
 	{
-		printf("%s", *(char **)vector_get(&vector, i));
+		printf(" + %s", *(char **)vector_get(&vector, i));
 		i++;
 	}
 	printf("\n===============================\n");
-	vector_insert(&vector, &(char *){"This shit was inserted\n"}, 2);
+	vector_init(&vector2, sizeof(char *));
+	vector_copy(&vector2, &vector);
+	vector_erase(&vector2, 2);
 	i = 0;
 	while (i < vector_size(&vector))
 	{
-		printf("%s", *(char **)vector_get(&vector, i));
+		printf(" - %s", *(char **)vector_get(&vector, i));
 		i++;
 	}
-	printf("\n===============================\n");
-	free(vector_erase(&vector, 2));
 	i = 0;
-	while (i < vector_size(&vector))
+	while (i < vector_size(&vector2))
 	{
-		printf("%s", *(char **)vector_get(&vector, i));
+		printf(" + %s", *(char **)vector_get(&vector2, i));
 		i++;
 	}
+	vector_destroy(&vector2);
 	vector_destroy(&vector);
 }
