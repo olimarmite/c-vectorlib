@@ -21,6 +21,7 @@ SOURCE_NAME= utils.c \
 			 methods.c \
 			 method_choice.c \
 			 size_modifiers.c \
+			 iterations.c \
 			 getter.c \
 			 adder.c \
 			 remover.c \

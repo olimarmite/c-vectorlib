@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 10:43:22 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/16 23:50:42 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/17 12:14:47 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,29 @@ t_length	vector_size(t_vector const *const vector)
 t_length	vector_capacity(t_vector const *const vector)
 {
 	return (vector->capacity);
+}
+
+t_vector	vector_subvec(
+				t_vector const *const vector,
+				t_length const index,
+				t_length const length)
+{
+	t_vector	sub;
+
+	if (vector_init(&sub, vector->type_size) == NULL)
+		return ((t_vector){0});
+	if (vector_resize(&sub, length))
+	{
+		vector_destroy(&sub);
+		return ((t_vector){0});
+	}
+	if (index + length <= vector->size)
+		_vec_memcpy(sub.data,
+			vector->data + vector->type_size * index,
+			vector->type_size * length);
+	else
+		_vec_memcpy(sub.data,
+			vector->data + vector->type_size * index,
+			vector->type_size * (vector->size - index + length));
+	return (sub);
 }

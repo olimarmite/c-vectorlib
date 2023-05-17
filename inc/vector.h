@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:17:22 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/17 00:01:05 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/17 13:44:56 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,19 @@ t_length	vector_size(t_vector const *const vector)
 			__attribute__((always_inline));
 t_length	vector_capacity(t_vector const *const vector)
 			__attribute__((always_inline));
+t_vector	vector_subvec(
+				t_vector const *const vector,
+				t_length const index,
+				t_length const length);
+
+t_length	vector_count_if(
+				t_vector const *const vector,
+				int (*cond)(t_object object))
+				__attribute__((always_inline));
+void		vector_for_each(
+				t_vector const *const vector,
+				void (*func)(t_object object))
+				__attribute__((always_inline));
 
 void		_vec_choose_method(t_vector *const vector)
 			__attribute__((always_inline));
@@ -78,9 +91,10 @@ t_object	_large_copy_method(void *dest, void *src, t_length const len)
 
 enum e_error
 {
-	SUCCES = 0,
-	FAILURE = 1,
-	MEMORY_FAILURE = 2
+	VEC_SUCCES = 0,
+	VEC_FAILURE = 1,
+	VEC_MEMORY_FAILURE = 2,
+	VEC_OBJECT_TYPE_MISMATCH = 3
 };
 
 struct s_vector
