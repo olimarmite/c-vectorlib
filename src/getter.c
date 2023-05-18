@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 10:43:22 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/17 12:14:47 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:41:46 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ t_vector	vector_subvec(
 {
 	t_vector	sub;
 
-	if (vector_init(&sub, vector->type_size) == NULL)
+	sub = vector_create(vector->type_size);
+	if (sub.data == NULL)
 		return ((t_vector){0});
 	if (vector_resize(&sub, length))
 	{

@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:25:21 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/17 13:44:46 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/19 00:26:05 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ t_error	vector_resize(t_vector	*vector, t_length const len)
 	if (error)
 		return (error);
 	vector->size = len;
-	return (0);
+	return (VEC_SUCCES);
 }
 
 void	vector_clear(t_vector *const vector)
 {
-	vector->size = 0u;
+	vector->size = 0;
 }

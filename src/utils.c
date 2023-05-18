@@ -6,15 +6,16 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:17:35 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/17 12:15:39 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:39:14 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 
-void	_vec_memcpy(void *dest, void *src, t_length const len)
+void	*_vec_memcpy(void *dest, void *src, t_length const len)
 {
 	void register	*ptr;
+	void *const		start = dest;
 
 	ptr = src + len;
 	while (src <= ptr - 8)
@@ -37,6 +38,7 @@ void	_vec_memcpy(void *dest, void *src, t_length const len)
 	}
 	if (src < ptr)
 		*(uint8_t *)dest++ = *(uint8_t *)src++;
+	return (start);
 }
 
 void	_vec_memmov(void *dest, void *src, t_length const len)
@@ -46,7 +48,7 @@ void	_vec_memmov(void *dest, void *src, t_length const len)
 	if (dest == src)
 		return ;
 	if (dest < src || dest >= src + len)
-		return (_vec_memcpy(dest, src, len));
+		return ((void)_vec_memcpy(dest, src, len));
 	ptr = src + len - 1;
 	dest += len - 1;
 	while (ptr >= src)

@@ -6,26 +6,28 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:17:31 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/17 00:00:46 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:40:29 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 
-t_vector	*vector_init(t_vector *const vector, t_length const type_size)
+t_vector	vector_create(t_length const type_size)
 {
+	t_vector	vector;
+
 	if (type_size == 0)
-		return (NULL);
-	vector->data = malloc(type_size * VECTOR_DEFAULT_SIZE);
-	if (vector->data == NULL)
-		return (NULL);
-	vector->buffer = malloc(type_size);
-	if (vector->buffer == NULL)
-		return (free(vector->data), NULL);
-	vector->size = 0u;
-	vector->capacity = VECTOR_DEFAULT_SIZE;
-	vector->type_size = type_size;
-	_vec_choose_method(vector);
+		return ((t_vector){0});
+	vector.data = malloc(type_size * VECTOR_DEFAULT_SIZE);
+	if (vector.data == NULL)
+		return ((t_vector){0});
+	vector.buffer = malloc(type_size);
+	if (vector.buffer == NULL)
+		return (free(vector.data), (t_vector){0});
+	vector.size = 0u;
+	vector.capacity = VECTOR_DEFAULT_SIZE;
+	vector.type_size = type_size;
+	_vec_choose_method(&vector);
 	return (vector);
 }
 

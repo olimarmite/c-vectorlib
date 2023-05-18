@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 22:12:45 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/17 13:44:33 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/19 00:05:01 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	main(void)
 	t_vector	vector;
 	t_vector	vector2;
 
-	vector_init(&vector, sizeof(char *));
+	vector = vector_create(sizeof(char *));
+	vector_addback(&vector, &(char *){"DEBUT\n"});
 	vector_addback(&vector, &(char *){"zero\n"});
 	vector_addback(&vector, &(char *){"un\n"});
 	vector_addback(&vector, &(char *){"deux\n"});
@@ -32,12 +33,19 @@ int	main(void)
 	vector_addback(&vector, &(char *){"cinq\n"});
 	vector_addback(&vector, &(char *){"six\n"});
 	vector_addback(&vector, &(char *){"sept\n"});
+	vector_addback(&vector, &(char *){"FIN\n"});
 
 	vector_for_each(&vector, &myvec_print);
 	printf("\n===============================\n");
 
 	vector2 = vector_subvec(&vector, 3, 3);
-	vector_addfront(&vector2, vector_get(&vector, 1u));
+	vector_addfront(&vector2, vector_get(&vector, 1));
+
+	vector_for_each(&vector2, &myvec_print);
+	printf("\n===============================\n");
+
+	if (vector_insert_vector(&vector2, &vector, 2) == NULL)
+		return (1);
 
 	vector_for_each(&vector2, &myvec_print);
 

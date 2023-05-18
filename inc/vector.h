@@ -6,13 +6,14 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:17:22 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/17 15:16:18 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/19 00:06:05 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
 
+# include <stdio.h>
 # include <stdlib.h>
 # include <stdint.h>
 
@@ -27,13 +28,16 @@ typedef enum e_error	t_error;
 //-Type for storing vector length
 typedef unsigned int	t_length;
 typedef void			*t_object;
+typedef t_object		(*t_copy_method)(
+			void *dest, void *src, t_length const len);
 
-void		_vec_memcpy(void *dest, void *src, t_length const len);
+void		*_vec_memcpy(void *dest, void *src, t_length const len);
 void		_vec_memmov(void *dest, void *src, t_length len);
 
-t_vector	*vector_init(t_vector *const vector, t_length const type_size);
+t_vector	vector_create(t_length const type_size);
 void		vector_destroy(t_vector *const vector)
 			__attribute__((always_inline));
+void		vector_set_copy_method(t_vector *const vector, t_copy_method cpy_m);
 //BOTH VECTORS MUST BE INITIALISED BEFORE
 t_vector	*vector_copy(t_vector *const vec_dest, t_vector *const vec_src);
 
@@ -48,6 +52,10 @@ t_object	vector_addfront(t_vector *const vector, t_object object);
 t_object	vector_insert(
 				t_vector *const vector,
 				t_object object,
+				t_length const index);
+t_vector	*vector_insert_vector(
+				t_vector *const vec_dest,
+				t_vector const *const vec_src,
 				t_length const index);
 
 t_object	vector_pop(t_vector *const vector);
@@ -69,11 +77,11 @@ t_vector	vector_subvec(
 t_length	vector_count_if(
 				t_vector const *const vector,
 				int (*cond)(t_object object))
-				__attribute__((always_inline));
+			__attribute__((always_inline));
 void		vector_for_each(
 				t_vector const *const vector,
 				void (*func)(t_object object))
-				__attribute__((always_inline));
+			__attribute__((always_inline));
 
 void		_vec_choose_method(t_vector *const vector)
 			__attribute__((always_inline));
@@ -86,8 +94,6 @@ t_object	_4byte_copy_method(void *dest, void *src, t_length const len)
 			__attribute__((always_inline));
 t_object	_8byte_copy_method(void *dest, void *src, t_length const len)
 			__attribute__((always_inline));
-t_object	_large_copy_method(void *dest, void *src, t_length const len)
-			__attribute__((always_inline));
 
 enum e_error
 {
@@ -99,12 +105,12 @@ enum e_error
 
 struct s_vector
 {
-	void		*data;
-	t_length	size;
-	t_length	capacity;
-	void		*buffer;
-	t_length	type_size;
-	t_object	(*copy_method)(void *dest, void *src, t_length const len);
+	void			*data;
+	t_length		size;
+	t_length		capacity;
+	void			*buffer;
+	t_length		type_size;
+	t_copy_method	copy_method;
 };
 
 #endif

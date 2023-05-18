@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 23:40:34 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/17 00:01:16 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:36:46 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,13 @@ void	_vec_choose_method(t_vector *const vector)
 	else if (vector->type_size == 8)
 		vector->copy_method = &_8byte_copy_method;
 	else
-		vector->copy_method = &_2byte_copy_method;
+		vector->copy_method = &_vec_memcpy;
+}
+
+void	vector_set_copy_method(t_vector *const vector, t_copy_method cpy_m)
+{
+	if (cpy_m == NULL)
+		_vec_choose_method(vector);
+	else
+		vector->copy_method = cpy_m;
 }

@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:20:39 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/16 23:52:12 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/19 00:27:46 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_object	vector_addback(t_vector *const vector, t_object object)
 		if (vector_resize(vector, vector->capacity + vector->capacity / 2))
 			return (NULL);
 	vector->copy_method(vector->data + vector->type_size * vector->size,
-	object, vector->type_size);
+		object, vector->type_size);
 	vector->size++;
 	return (vector->data + vector->type_size * vector->size);
 }
@@ -51,4 +51,27 @@ t_object	vector_insert(
 		object, vector->type_size);
 	vector->size++;
 	return (vector->data);
+}
+
+t_vector	*vector_insert_vector(
+				t_vector *const vec_dest,
+				t_vector const *const vec_src,
+				t_length const index)
+{
+	if (vec_dest->type_size != vec_src->type_size || index > vec_dest->size)
+		return (NULL);
+	if (vec_dest->size + vec_src->size > vec_dest->capacity)
+		if (vector_reserve(vec_dest,
+				vec_dest->capacity + vec_src->size + vec_dest->capacity / 2))
+			return (NULL);
+	_vec_memmov(
+		vec_dest->data + vec_dest->type_size * (index + vec_src->size),
+		vec_dest->data + vec_dest->type_size * index,
+		vec_src->type_size * vec_src->size);
+	_vec_memmov(
+		vec_dest->data + vec_dest->type_size * index,
+		vec_src->data,
+		vec_src->type_size * vec_src->size);
+	vec_dest->size += vec_src->size;
+	return (vec_dest);
 }
