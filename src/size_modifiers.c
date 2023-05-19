@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:25:21 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/19 00:26:05 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/20 00:19:39 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,20 @@ t_error	vector_resize(t_vector	*vector, t_length const len)
 void	vector_clear(t_vector *const vector)
 {
 	vector->size = 0;
+}
+
+t_error	vector_shrink_to_fit(t_vector *const vector)
+{
+	void	*data;
+
+	if (vector->size == vector->capacity)
+		return (VEC_FAILURE);
+	data = malloc(vector->type_size * vector->size);
+	if (data == NULL)
+		return (VEC_MEMORY_FAILURE);
+	_vec_memcpy(data, vector->data, vector->type_size * vector->size);
+	free(vector->data);
+	vector->data = data;
+	vector->capacity = vector->size;
+	return (VEC_SUCCES);
 }

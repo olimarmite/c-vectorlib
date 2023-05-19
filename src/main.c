@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 22:12:45 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/19 00:05:01 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/20 00:10:00 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@ int	main(void)
 
 	if (vector_insert_vector(&vector2, &vector, 2) == NULL)
 		return (1);
+
+	vector_for_each(&vector2, &myvec_print);
+	printf("\n===============================\n");
+
+	printf("size before :%u\n", vector2.capacity);
+	printf("\n===============================\n");
+
+	vector_shrink_to_fit(&vector2);
+
+	printf("size after :%u\n", vector2.capacity);
+	printf("\n===============================\n");
 
 	vector_for_each(&vector2, &myvec_print);
 

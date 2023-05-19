@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:17:22 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/19 00:06:05 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/05/20 00:32:06 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_error		vector_resize(t_vector *const vector, t_length const len)
 			__attribute__((always_inline));
 void		vector_clear(t_vector *const vector)
 			__attribute__((always_inline));
+t_error		vector_shrink_to_fit(t_vector *const vector);
 
 t_object	vector_addback(t_vector *const vector, t_object object);
 t_object	vector_addfront(t_vector *const vector, t_object object);
