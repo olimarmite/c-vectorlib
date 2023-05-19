@@ -3,8 +3,8 @@
 ##########################################
 
 # Compiler options
-CC=clang
-CFLAGS= -MMD -MP -Wall -Wextra -Werror -g3
+CC=cc
+CFLAGS= -MMD -MP -Wall -Wextra -Werror -Ofast
 LDFLAGS=
 BINARY_NAME=
 LIBRARY_NAME=libvector.a
@@ -24,8 +24,7 @@ SOURCE_NAME= utils.c \
 			 iterations.c \
 			 getter.c \
 			 adder.c \
-			 remover.c \
-			 main.c
+			 remover.c
 
 ##########################################
 #    Don't touch anything below this     #
@@ -39,7 +38,7 @@ build: obj $(LIBRARY_NAME)
 clean:
 	@echo Removing $(OBJ)...
 	@rm -r -f $(OBJ)
-	@rm -r -f $(LIBRARY_NAME)
+	@rm -rf .print_rule
 
 fclean: clean
 	@echo Removing $(LIBRARY_NAME)...
@@ -56,7 +55,6 @@ obj:
 $(LIBRARY_NAME): $(OBJECT_FILES)
 	@echo "\e[1;35mPacking...\e[0m"
 	@ar -crs $@ $+
-	@$(CC) $(CFLAGS) -I $(INC) -o "EXEC" $+
 	@echo "\e[1;32m➤" $@ "created succesfully !\e[0m"
 
 .print_rule:
