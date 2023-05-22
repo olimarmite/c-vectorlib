@@ -5,3 +5,4 @@
 .print_rule
 obj
 libvector.a
+EXEC
