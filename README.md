@@ -1,19 +1,17 @@
 
-+-------------+
-| C-VECTORLIB |
-+-------------+
+# C-VECTORLIB
 
 The vector lib is a simple and easy to use c library adding c++ like vectors.
 
 exemple:
-
+```c
 {
 	t_vector	my_vector;
 	int		my_object;
 	
 	my_object = 10;
 
-	my_vector = vector_create(&my_vector, sizeof(int));
+	my_vector = vector_create(sizeof(int));
 	//Allocate and initialised all the memory used by the vector, 
 	//returns a pointer to itself or 'NULL' if there is an error.
 	//The parameter is the size of the storage type.
@@ -32,3 +30,4 @@ exemple:
 	vector_destroy(&vector);
 	//Free all the memory used by the vector.
 }
+```
