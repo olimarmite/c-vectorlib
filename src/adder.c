@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:20:39 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/06/12 16:01:47 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:17:22 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ t_object	vector_insert(
 				t_object object,
 				t_length const index)
 {
+	t_object	ret;
+
 	if (vector->size + 1 > vector->capacity)
 		if (vector_reserve(vector, vector->capacity + vector->capacity / 2))
 			return (NULL);
@@ -53,7 +55,7 @@ t_object	vector_insert(
 	vector->copy_method(vector->data + vector->type_size * index,
 		object, vector->type_size);
 	vector->size++;
-	return (vector->data);
+	return (vector->data + vector->type_size * index);
 }
 
 t_vector	*vector_insert_vector(
