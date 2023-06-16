@@ -14,13 +14,16 @@
 
 t_object	vector_addback(t_vector *const vector, t_object object)
 {
+	t_object	ret;
+
 	if (vector->size + 1 > vector->capacity)
 		if (vector_reserve(vector, vector->capacity + vector->capacity / 2))
 			return (NULL);
 	vector->copy_method(vector->data + vector->type_size * vector->size,
 		object, vector->type_size);
+	ret = vector->data + vector->type_size * vector->size;
 	vector->size++;
-	return (vector->data + vector->type_size * vector->size);
+	return (ret);
 }
 
 t_object	vector_addfront(t_vector *const vector, t_object object)
