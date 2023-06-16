@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:24:02 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/05/17 16:42:18 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:23:16 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_object	vector_erase(t_vector *const vector, t_length const index)
 	if (index + 1 < vector->size)
 		_vec_memcpy(vector->data + vector->type_size * index,
 			vector->data + vector->type_size * (index + 1),
-			vector->type_size * (vector->type_size - index));
+			vector->type_size * (vector->size - index));
 	vector->size--;
 	return (vector->buffer);
 }
